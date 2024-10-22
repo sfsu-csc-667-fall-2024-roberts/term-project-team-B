@@ -129,5 +129,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# Uzair's stuff because he's using NixOS
+# Uzair's Nix stuff
 .direnv
+.envrc
+flake.lock
+flake.nix
