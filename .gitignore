@@ -128,9 +128,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# Uzair's Nix stuff
-.direnv
-.envrc
-flake.lock
-flake.nix
