@@ -21,6 +21,7 @@ Milestones Assigned for the Week
 Frontend Setup:
 
 [] Ensure webpack is properly configured to handle TypeScript and bundle client-side code.
+
 [] Confirm that main.ts and other modules load correctly using the bundled main.js.
 
 Notes for the meeting: 
