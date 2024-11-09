@@ -2,7 +2,7 @@
 
 ## Links
 
-1. [GitHub Repository](https://github.com/sfsu-csc-667-fall-2024-roberts/term-project-team06)
+1. [GitHub Repository](https://github.com/sfsu-csc-667-fall-2024-roberts/term-project-team-B)
 2. [GitHub Project Board](https://github.com/orgs/sfsu-csc-667-fall-2024-roberts/projects/14/views/1)
 --------------------------------------------------------------------------------------------------------
 3. Accomplishments for the Week:
