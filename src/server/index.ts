@@ -11,10 +11,29 @@ import { json } from "stream/consumers";
 import connectLiveReload from "connect-livereload";
 import livereload from "livereload";
 
+import { Pool } from 'pg';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+import authRoutes from './routes/authRoutes';
+
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const staticPath = path.join(process.cwd(), "src", "public");
+
+const pool = new Pool({
+  user: 'yourUsername',
+  host: 'localhost',
+  database: 'yourDatabase',
+  password: 'yourPassword',
+  port: 5432,
+});
+
+app.use("/api/auth", authRoutes);
+
+app.use(express.static(staticPath));
 
 app.use(morgan("dev"));
 app.use(express.json());
