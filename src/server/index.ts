@@ -9,13 +9,19 @@ import rootRoutes from "./routes/root";
 import { json } from "stream/consumers";
 
 import connectLiveReload from "connect-livereload";
-import livereload from "livereload";
+//import livereload from "livereload";
 
 import { Pool } from 'pg';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import authRoutes from './routes/authRoutes';
+
+
+import * as configuration from "./config";
+import * as routes from "./routes";
+
+configuration.configureLiveReload(app, staticPath);
 
 
 const app = express();
