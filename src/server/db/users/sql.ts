@@ -5,5 +5,5 @@ export const REGISTER_SQL = `
 `;
 
 export const FIND_BY_EMAIL_SQL = `
-SELECT * FROM users WHERE email = $1
+    SELECT * FROM users WHERE email = $1
 `;

@@ -8,10 +8,11 @@ import * as path from "path";
 import rootRoutes from "./routes/root";
 import { json } from "stream/consumers";
 
-import connectLiveReload from "connect-livereload";
-//import livereload from "livereload";
+import * as configuration from "./config";
+import * as routes from "./routes";
+import * as middleware from "./middleware";
 
-import { Pool } from 'pg';
+/* import { Pool } from 'pg';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
@@ -21,7 +22,7 @@ import authRoutes from './routes/authRoutes';
 import * as configuration from "./config";
 import * as routes from "./routes";
 
-configuration.configureLiveReload(app, staticPath);
+configuration.configureLiveReload(app, staticPath); */
 
 
 const app = express();
@@ -29,7 +30,7 @@ const PORT = process.env.PORT || 3000;
 
 const staticPath = path.join(process.cwd(), "src", "public");
 
-const pool = new Pool({
+/* const pool = new Pool({
   user: 'yourUsername',
   host: 'localhost',
   database: 'yourDatabase',
@@ -37,7 +38,13 @@ const pool = new Pool({
   port: 5432,
 });
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRoutes); */
+
+configuration.configureLiveReload(app, staticPath);
+configuration.configureSession(app);
+
+app.use("/auth", routes.auth);
+app.use("/games", routes.games);
 
 app.use(express.static(staticPath));
 
@@ -56,18 +63,6 @@ app.use((_request, _response, next) => {
 });
 
 app.use(express.static(staticPath));
-
-if (process.env.NODE_ENV === "development") {
-  const reloadServer = livereload.createServer();
-
-  reloadServer.watch(staticPath);
-  reloadServer.server.once("connection", () => {
-    setTimeout(() => {
-      reloadServer.refresh("/");
-    }, 100);
-  });
-  app.use(connectLiveReload());
-}
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
