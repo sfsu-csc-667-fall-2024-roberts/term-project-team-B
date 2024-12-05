@@ -29,6 +29,10 @@ app.set("view engine", "ejs");
 app.use("/", rootRoutes);
 app.use("/auth", authRoutes);
 
+app.get('/howto', (req, res) => {
+    res.render('howto');
+});
+
 app.use((_request, _response, next) => {
   next(httpErrors(404));
 });
