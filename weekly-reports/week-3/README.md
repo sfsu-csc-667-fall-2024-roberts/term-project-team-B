@@ -20,9 +20,9 @@ Our team has scheduled another in-person meeting to review our front-end impleme
 Milestones Assigned for the Week
 Frontend Setup:
 
-- [x] Ensure webpack is properly configured to handle TypeScript and bundle client-side code.
+[] Ensure webpack is properly configured to handle TypeScript and bundle client-side code.
 
-- [x] Confirm that main.ts and other modules load correctly using the bundled main.js.
+[] Confirm that main.ts and other modules load correctly using the bundled main.js.
 
 Notes for the meeting: 
 

@@ -17,9 +17,9 @@ User Interaction Documentation:
 
 Documented how users will interact with the application across different screens, such as logging in, joining or creating games in the lobby, controlling tanks in the game, and managing their profiles.
 
-https://github.com/sfsu-csc-667-fall-2024-roberts/term-project-team-B
+https://github.com/sfsu-csc-667-fall-2024-roberts/term-project-team06
 
 
-https://github.com/sfsu-csc-667-fall-2024-roberts/term-project-team-B/tree/main/weekly-reports/week-1
+https://github.com/sfsu-csc-667-fall-2024-roberts/term-project-team06/tree/main/weekly-reports/week-1
 
 
