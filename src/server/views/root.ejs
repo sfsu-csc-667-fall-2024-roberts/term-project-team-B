@@ -1,15 +1,57 @@
 <html>
     <head>
         <title>Welcome to Tank Game!</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Press+Start+2P&display=swap" rel="stylesheet">
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                text-align: center;
+                background-color: #181825;
+                color: #cdd6f4;
+                font-family: "Press Start 2P", system-ui;
+            }
+            .center-box {
+                background-color: #1e1e2e;
+                padding: 200px 100px;
+                border-radius: 10px;
+                color: #cdd6f4;
+            }
+            .auth-links {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+                margin-top: 100px;
+            }
+            .auth-links a {
+                background-color: #bac2de;
+                padding: 10px 20px;
+                border-radius: 5px;
+                color: #1e1e2e;
+                text-decoration: none;
+                font-family: "Press Start 2P", system-ui;
+            }
+            .auth-links a:hover {
+                background-color: #cdd6f4;
+            }
+        </style>
     </head>
     <body>
-        <h1>Welcome to Tank Game!</h1>
-        <p>Hello <%= name %>!!</p>
-        <p>This is where our future game will live</p>
-        <div>
-            <a href="/auth/register">Sign Up</a>
-            <a href="/auth/login">Log In</a>
+        <div class="center-box">
+            <h1>Welcome to Tank Game!</h1>
+            <p>This is where our future game will live</p>
+            <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5b3361cd-14d8-4b92-810b-0f290cbcbff1/d8vhtzw-ee697f67-41c8-4d71-8a9f-44a3d5941333.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzViMzM2MWNkLTE0ZDgtNGI5Mi04MTBiLTBmMjkwY2JjYmZmMVwvZDh2aHR6dy1lZTY5N2Y2Ny00MWM4LTRkNzEtOGE5Zi00NGEzZDU5NDEzMzMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.xKjHVkgrREtXNx3GpQyABT7sWRUrRvL5lscVf-YgqS0" width="200" height="200" alt="Tank Gif">
+            <div class="auth-links">
+                <a href="/auth/register">Sign Up</a>
+                <a href="/auth/login">Log In</a>
+            </div>
         </div>
         <script src="/js/main.js"></script>
     </body>
-</html> 
+</html>
