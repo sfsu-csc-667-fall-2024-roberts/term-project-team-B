@@ -4,6 +4,7 @@ import express from "express";
 import httpErrors from "http-errors";
 import morgan from "morgan";
 import * as path from "path";
+import './db';
 
 import rootRoutes from "./routes/root";
 import authRoutes from "./routes/auth";
@@ -30,7 +31,7 @@ app.use("/", rootRoutes);
 app.use("/auth", authRoutes);
 
 app.get('/howto', (req, res) => {
-    res.render('howto');
+  res.render('howto');
 });
 
 app.use((_request, _response, next) => {
