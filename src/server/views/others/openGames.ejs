@@ -75,14 +75,21 @@
 
 <body>
   <div class="top-right">
-    <button onclick="window.location.href='/logout'">Logout</button>
+    <button onclick="window.location.href='/login'">Logout</button>
     <button onclick="window.location.href='/profile'">Profile</button>
   </div>
-  <h1>Tank Game</h1>
+  <h1>Open Games</h1>
   <div class="center-buttons">
-    <button onclick="window.location.href='/game/create'">Create Game</button>
-    <button onclick="window.location.href='/game/open'">Open Games</button>
-    <button onclick="window.location.href='/chat'">Open Chat</button>
+     <form action="/submit" method="POST">
+    <label for="gameName">Game Name:</label>
+    <input type="text" id="gameName" name="gameName" placeholder=" " required>
+    <label for="playes">Players:</label>
+    <input type="text" id="players" name="players" placeholder=" " required> 
+    <label for="mode">Mode:</label>
+    <input type="text" id="mode" name="mode" placeholder=" " required>
+
+    <button type="submit">Join</button>
+  </form>
   </div>
 </body>
 

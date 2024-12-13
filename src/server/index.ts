@@ -8,7 +8,14 @@ import './db';
 
 import rootRoutes from './routes/root';
 import authRoutes from './routes/auth';
-import gameRoutes from './routes/game';
+import gameRoutes from './routes/others';
+import createGame from './routes/others';
+import game from './routes/game';
+import openGames from './routes/others';
+import profile from './routes/others';
+import chat from './routes/others';
+import login from './routes/others';
+
 import { json } from "stream/consumers";
 
 import connectLiveReload from "connect-livereload";
@@ -23,14 +30,24 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(process.cwd(), "src", "public")));
 
 app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
+//Routes
 app.use("/", rootRoutes);
 app.use("/auth", authRoutes);
-app.use("/game", gameRoutes);
+//app.use("/game", gameRoutes);
+app.use("/", gameRoutes);
+app.use("/", createGame);
+app.use("/", game);
+app.use("/", openGames);
+app.use("/", profile);
+app.use("/", chat);
+app.use("/", login);
+
 
 app.get('/howto', (req, res) => {
   res.render('howto');

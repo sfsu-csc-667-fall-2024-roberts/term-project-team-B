@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tank Game Landing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Press+Start+2P&display=swap" rel="stylesheet">
+  <title>Tank Game</title>
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      background-color: #181825;
+      color: #cdd6f4;
+      font-family: "Press Start 2P", system-ui;
+    }
+
+    .top-right {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .top-right button {
+      background-color: #bac2de;
+      color: #1e1e2e;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0 5px;
+      font-family: "Press Start 2P", system-ui;
+      padding: 10px 20px;
+    }
+
+    .top-right button:hover {
+      background-color: #cdd6f4;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-top: 100px;
+    }
+
+    .center-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .center-buttons button {
+      width: 200px;
+      margin: 10px;
+      padding: 15px;
+      background-color: #bac2de;
+      color: #1e1e2e;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-family: "Press Start 2P", system-ui;
+    }
+
+    .center-buttons button:hover {
+      background-color: #cdd6f4;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-right">
+    <button onclick="window.location.href='/login'">Logout</button>
+    <button onclick="window.location.href='/profile'">Profile</button>
+     <button onclick="window.location.href='gamelanding'">Exit</button>
+    <button onclick="window.location.href='chat'">Chat</button>
+  </div>
+     <button id="startButton" class="game-button">Start Game</button>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+  <script src="/game.js"></script>
+  </div>
+</body>
+
+</html>
