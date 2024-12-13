@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>Profile Settings</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Beau+Rivage&family=Press+Start+2P&display=swap" rel="stylesheet">
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                text-align: center;
+                background-color: #181825;
+                color: #cdd6f4;
+                font-family: "Press Start 2P", system-ui;
+            }
+            .center-box {
+                background-color: #1e1e2e;
+                padding: 50px 100px;
+                border-radius: 10px;
+                color: #cdd6f4;
+            }
+            .form-group {
+                margin-bottom: 20px;
+            }
+            .form-group label {
+                display: block;
+                margin-bottom: 10px;
+                font-family: "Press Start 2P", system-ui;
+            }
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border-radius: 5px;
+                border: none;
+                font-family: "Press Start 2P", system-ui;
+            }
+            .form-group input[type="file"] {
+                padding: 0;
+            }
+            .form-group button {
+                background-color: #bac2de;
+                padding: 10px 20px;
+                border-radius: 5px;
+                color: #1e1e2e;
+                border: none;
+                font-family: "Press Start 2P", system-ui;
+                cursor: pointer;
+            }
+            .form-group button:hover {
+                background-color: #cdd6f4;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="center-box">
+            <h1>Profile Settings</h1>
+            <form action="/profile/update" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="profileImage">Profile Image</label>
+                    <input type="file" id="profileImage" name="profileImage">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit">Update Profile</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
