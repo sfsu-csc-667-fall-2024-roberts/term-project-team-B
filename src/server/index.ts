@@ -6,8 +6,9 @@ import morgan from "morgan";
 import * as path from "path";
 import './db';
 
-import rootRoutes from "./routes/root";
-import authRoutes from "./routes/auth";
+import rootRoutes from './routes/root';
+import authRoutes from './routes/auth';
+import gameRoutes from './routes/game';
 import { json } from "stream/consumers";
 
 import connectLiveReload from "connect-livereload";
@@ -29,6 +30,7 @@ app.set("view engine", "ejs");
 
 app.use("/", rootRoutes);
 app.use("/auth", authRoutes);
+app.use("/game", gameRoutes);
 
 app.get('/howto', (req, res) => {
   res.render('howto');

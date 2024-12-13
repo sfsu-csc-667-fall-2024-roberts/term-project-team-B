@@ -1,5 +1,7 @@
 import express from 'express';
 import { addUser, removeUser } from '../userService';
+import User from '../userModel';
+
 const router = express.Router();
 
 router.get('/login', (req, res) => {
@@ -10,11 +12,26 @@ router.get('/register', (req, res) => {
   res.render('auth/register');
 });
 
+router.post('/login', async (req, res) => {
+  console.log('Login route hit'); // Add this log
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username, password });
+    if (user) {
+      res.redirect('/game/gameLanding');
+    } else {
+      res.status(401).json({ error: 'Invalid credentials' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error logging in' });
+  }
+});
+
 router.post('/add-user', async (req, res) => {
   const { username, password, email } = req.body; // Include email
   try {
     const user = await addUser(username, password, email); // Pass email as well
-    res.status(201).json(user);
+    res.redirect('/game/gameLanding');
   } catch (error) {
     res.status(500).json({ error: 'Error adding user' });
   }
