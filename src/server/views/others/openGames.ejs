@@ -78,19 +78,53 @@
     <button onclick="window.location.href='/login'">Logout</button>
     <button onclick="window.location.href='/profile'">Profile</button>
   </div>
-  <h1>Open Games</h1>
-  <div class="center-buttons">
-     <form action="/submit" method="POST">
-    <label for="gameName">Game Name:</label>
-    <input type="text" id="gameName" name="gameName" placeholder=" " required>
-    <label for="playes">Players:</label>
-    <input type="text" id="players" name="players" placeholder=" " required> 
-    <label for="mode">Mode:</label>
-    <input type="text" id="mode" name="mode" placeholder=" " required>
-
-    <button type="submit">Join</button>
-  </form>
+ 
+ <div id="waiting-room">
+    <h1>Open Games</h1>
+    <p id="player-count">Waiting for players...</p>
+    <p>Players needed: <span id="needed-players">4</span></p>
   </div>
+<script>
+  const ws = new WebSocket(`ws://${window.location.host}`);
+
+    ws.onopen = () => {
+      console.log('WebSocket connection opened');
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+    };
+
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
+    };
+
+
+
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    console.log('Message from server:', data); // Debug message
+
+    if (data.type === 'updatePlayers') {
+      // Check if data.players exists and is an object
+      if (data.players && typeof data.players === 'object') {
+        const playerCount = Object.keys(data.players).length; // Count players
+        const neededPlayers = 4 - playerCount;
+
+        document.getElementById('player-count').innerText = `${playerCount} player(s) connected`;
+        document.getElementById('needed-players').innerText = neededPlayers > 0 ? neededPlayers : 'Game starting...';
+      } else {
+        console.error('No player data received:', data.players);
+      }
+    } else if (data.type === 'startGame') {
+
+        console.log('Game is starting! Redirecting to game page...');
+
+      window.location.href = '/game';
+    }
+  };
+</script>
+  
 </body>
 
 </html>
