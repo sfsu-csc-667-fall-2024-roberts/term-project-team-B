@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({ username, password });
     if (user) {
-      res.redirect('/game/gameLanding');
+      res.redirect('/gameLanding');
     } else {
       res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -31,7 +31,7 @@ router.post('/add-user', async (req, res) => {
   const { username, password, email } = req.body; // Include email
   try {
     const user = await addUser(username, password, email); // Pass email as well
-    res.redirect('/game/gameLanding');
+    res.redirect('/gameLanding');
   } catch (error) {
     res.status(500).json({ error: 'Error adding user' });
   }
