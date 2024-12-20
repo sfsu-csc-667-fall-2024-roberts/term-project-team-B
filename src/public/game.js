@@ -14,13 +14,14 @@ woodImage.onload = () => console.log('Wood image loaded.');
 brickImage.onload = () => console.log('Brick image loaded.');
 
 // Handle missing images
-woodImage.onerror = () => console.error('Wood image not found at /public/Wood_01-128x128.png');
-brickImage.onerror = () => console.error('Brick image not found at /public/Bricks_01-128x128.png');
+woodImage.onerror = () => console.error('Wood image not found at /imgs/Wood_01-128x128.png');
+brickImage.onerror = () => console.error('Brick image not found at /imgs/Bricks_01-128x128.png');
 
 // WebSocket connection
 const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss' : 'ws'}://${window.location.host}`);
 
 // Game State
+let score = 0;
 let myPlayerId = null;
 let gameState = {};
 let obstacles = [];
@@ -100,6 +101,27 @@ function drawPowerUps() {
     });
 }
 
+
+function drawPlayer() {
+    const sprite = player.spritePositions[player.direction];
+    
+    // Draw the health bar above the player
+    ctx.fillStyle = 'red';
+    ctx.fillRect(player.x, player.y - 10, (player.health / 100) * player.width, 5);
+    
+    ctx.drawImage(
+        player.spriteSheet,
+        sprite.x,
+        sprite.y,
+        55, // Sprite width
+        90, // Sprite height
+        player.x,
+        player.y,
+        player.width,
+        player.height
+    );
+}
+
 function fireBullet(player) {
     const bulletWidth = 10;
     const bulletHeight = 20;
@@ -127,6 +149,31 @@ function fireBullet(player) {
     });
 }
 
+function drawBullets() {
+    player.bullets.forEach((bullet) => {
+        ctx.fillStyle = 'red';
+        ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+    });
+}
+
+function updateBullets() {
+    player.bullets.forEach((bullet, index) => {
+        if (bullet.direction === 'up') bullet.y -= 7;
+        if (bullet.direction === 'down') bullet.y += 7;
+        if (bullet.direction === 'left') bullet.x -= 7;
+        if (bullet.direction === 'right') bullet.x += 7;
+
+        // Remove bullet if out of bounds
+        if (
+            bullet.x < 0 ||
+            bullet.x > canvas.width ||
+            bullet.y < 0 ||
+            bullet.y > canvas.height
+        ) {
+            player.bullets.splice(index, 1);
+        }
+    });
+}
 
 /// Generate random position within the canvas
 function getRandomPosition(width, height) {
@@ -172,27 +219,27 @@ function generateObstacles() {
 
   obstacles = [
     // Top Horizontal Walls
-    { x: 100, y: 60, width: 400, height: 20, image: woodImage, health: 3 }, // Top-left horizontal
-    { x: 700, y: 60, width: 400, height: 20, image: woodImage, health: 3 }, // Top-right horizontal
+    { x: 100, y: 60, width: 400, height: 20, type: 'wood', health: 3 }, // Top-left horizontal
+    { x: 700, y: 60, width: 400, height: 20, type: 'wood', health: 3 }, // Top-right horizontal
 
     // Middle Horizontal Walls
-    { x: 100, y: 350, width: 400, height: 20, image: woodImage, health: 3 }, // Middle-left horizontal
-    { x: 700, y: 330, width: 400, height: 20, image: brickImage }, // Middle-right horizontal
+    { x: 100, y: 350, width: 400, height: 20, type: 'wood', health: 3 }, // Middle-left horizontal
+    { x: 700, y: 330, width: 400, height: 20, type: brickImage }, // Middle-right horizontal
 
     // Bottom Horizontal Walls
-    { x: 100, y: 650, width: 400, height: 20, image: woodImage, health: 3 }, // Bottom-left horizontal
-    { x: 700, y: 650, width: 400, height: 20, image: brickImage }, // Bottom-right horizontal
+    { x: 100, y: 650, width: 400, height: 20, type: 'wood', health: 3 }, // Bottom-left horizontal
+    { x: 700, y: 650, width: 400, height: 20, type: brickImage }, // Bottom-right horizontal
 
     // Vertical Walls for Maze Pathways
-   { x: 500, y: 70, width: 20, height: 300, image:  brickImage }, // Top vertical center
-   { x: 700, y: 370, width: 20, height: 300, image: woodImage, health: 3 }, // Bottom vertical center
+   { x: 500, y: 70, width: 20, height: 300, type:  brickImage }, // Top vertical center
+   { x: 700, y: 370, width: 20, height: 300, type: 'wood', health: 3 }, // Bottom vertical center
 
     // Short Vertical Walls for Side Openings
-    { x: 250, y: 150, width: 20, height: 200, image: brickImage }, // Left vertical top
-    { x: 850, y: 130, width: 20, height: 200, image: brickImage }, // Right vertical top
+    { x: 250, y: 150, width: 20, height: 200, type: brickImage }, // Left vertical top
+    { x: 850, y: 130, width: 20, height: 200, type: brickImage }, // Right vertical top
 
-    { x: 250, y: 450, width: 20, height: 200, image: brickImage }, // Left vertical bottom
-    { x: 850, y: 450, width: 20, height: 200, image: brickImage }, // Right vertical bottom
+    { x: 250, y: 450, width: 20, height: 200, type: brickImage }, // Left vertical bottom
+    { x: 850, y: 450, width: 20, height: 200, type: brickImage }, // Right vertical bottom
   ];
   
    console.log('Obstacles generated:', obstacles);
@@ -222,39 +269,126 @@ function applyPowerUp(player, powerUp) {
 
 // Handle key events
 document.addEventListener('keydown', (e) => (keys[e.key] = true));
-document.addEventListener('keyup', (e) => (keys[e.key] = false));
+document.addEventListener('keyup', (e) => {
+    if (e.key === player.keyMap.shoot) {
+        fireBullet(player);
+    }
+    keys[e.key] = false;
+});
 
 // Update game state
 function update() {
-    if (gameOver) return;
+  if (gameOver) return;
 
-    const prevX = player.x;
-    const prevY = player.y;
+  	
+    const previousX = player.x;
+    const previousY = player.y;
 
-    if (keys[player.keyMap.left] && player.x > 0) player.x -= player.speed;
-    if (keys[player.keyMap.right] && player.x + player.width < canvas.width) player.x += player.speed;
-    if (keys[player.keyMap.up] && player.y > 0) player.y -= player.speed;
-    if (keys[player.keyMap.down] && player.y + player.height < canvas.height) player.y += player.speed;
+    // Move Player
+     if (keys[player.keyMap.left] && player.x > 0) {
+    player.x -= player.speed;
+    player.direction = 'left';
+  }
+  if (keys[player.keyMap.right] && player.x + player.width < canvas.width) {
+    player.x += player.speed;
+    player.direction = 'right';
+  }
+  if (keys[player.keyMap.up] && player.y > 0) {
+    player.y -= player.speed;
+    player.direction = 'up';
+  }
+  if (keys[player.keyMap.down] && player.y + player.height < canvas.height) {
+    player.y += player.speed;
+    player.direction = 'down';
+  }
 
-    obstacles.forEach((obstacle) => {
-        if (isColliding(player, obstacle)) {
-            player.x = prevX;
-            player.y = prevY;
+    // Handle Collisions with Obstacles
+    for (const obstacle of obstacles) {
+      if (isColliding(player, obstacle)) {
+        player.x = previousX;
+        player.y = previousY;
+        break;
+      }
+    }
+
+    // Handle Collisions with Power-Ups
+    for (let i = 0; i < powerUps.length; i++) {
+      if (isColliding(player, powerUps[i])) {
+        applyPowerUp(player, powerUps[i]);
+        powerUps.splice(i, 1); // Remove power-up after collection
+        break;
+      }
+    }
+
+    // Fire Bullets
+    if (keys[player.keyMap.shoot] && player.bullets.length < 5) {
+      fireBullet(player);
+      keys[player.keyMap.shoot] = false; // Prevent continuous shooting
+    }
+
+    // Move Bullets
+    player.bullets.forEach((bullet, bulletIndex) => {
+      if (bullet.direction === 'up') bullet.y -= 7;
+      if (bullet.direction === 'down') bullet.y += 7;
+      if (bullet.direction === 'left') bullet.x -= 7;
+      if (bullet.direction === 'right') bullet.x += 7;
+
+      // Check for Bullet Collisions with Obstacles
+      obstacles.forEach((obstacle, obstacleIndex) => {
+        if (isColliding(bullet, obstacle)) {
+        
+        if (obstacle.image === brickImage) {
+        player.bullets.splice(bulletIndex, 1); // Remove bullet
+        return; 
+      }
+      
+         // Reduce health for other obstacles
+          obstacle.health -= 1;
+          player.bullets.splice(bulletIndex, 1); 
+          
+           // Remove obstacle if health is zero 
+          if (obstacle.health <= 0) {
+            obstacles.splice(obstacleIndex, 1); 
+            score += 10; // Update score for player
+          }
         }
+      });
+
+
+
+      // Remove Bullet if Off-Screen
+      if (bullet.x < 0 || bullet.x > canvas.width || bullet.y < 0 || bullet.y > canvas.height) {
+        player.bullets.splice(bulletIndex, 1);
+      }
     });
+    
+     updateBullets();
+ 
 }
 
 // Draw game elements
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = 'green';
-    ctx.fillRect(player.x, player.y, player.width, player.height);
+    // Draw Player
+    drawPlayer();
 
-    obstacles.forEach((obstacle) => {
-        ctx.drawImage(obstacle.image, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-    });
+    // Draw Bullets
+    drawBullets();
+
+    // Draw Obstacles
+    drawObstacles();
+
+    // Draw Power-Ups
+    drawPowerUps();
+    
+    // Display Score
+    ctx.fillStyle = 'white';
+    ctx.font = '20px Arial';
+    ctx.fillText(`Score: ${score}`, 10, 20);
+    
 }
+
 
 // Game loop
 function gameLoop() {
