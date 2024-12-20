@@ -31,7 +31,7 @@
       right: 20px;
     }
 
-    .top-right button {
+    .top-right button, #startButton {
       background-color: #bac2de;
       color: #1e1e2e;
       border: none;
@@ -42,7 +42,7 @@
       padding: 10px 20px;
     }
 
-    .top-right button:hover {
+    .top-right button:hover, #startButton:hover {
       background-color: #cdd6f4;
     }
 
@@ -78,15 +78,16 @@
 
 <body>
   <div class="top-right">
-    <button onclick="window.location.href='/login'">Logout</button>
+    <button onclick="window.location.href='/howto'">How to Play</button>
     <button onclick="window.location.href='/profile'">Profile</button>
-     <button onclick="window.location.href='gamelanding'">Exit</button>
-    <button onclick="window.location.href='chat'">Chat</button>
+    <button onclick="window.location.href='/createGame'">Exit</button>
+    <button onclick="window.location.href='/chat'">Chat</button>
   </div>
-     <button id="startButton" class="game-button">Start Game</button>
-    <canvas id="gameCanvas" width="1200" height="800"></canvas>
+  <div class="center-buttons">
+    <button id="startButton" class="game-button">Start Game</button>
+  </div>
+  <canvas id="gameCanvas" width="1200" height="800"></canvas>
   <script src="/game.js"></script>
-  </div>
 </body>
 
 </html>
