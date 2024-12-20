@@ -17,23 +17,11 @@
       height: 100vh;
       margin: 0;
       text-align: center;
-      background: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHBxanFzMHZsdHFrNWpvZnljOHpxMGZoODl0MGRkZ3k0NDFjbnlraiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ZUddDFsFxB6M/giphy.webp') no-repeat center center fixed;
-      background-size: cover;
+      background-color: #181825;
+      
       color: #cdd6f4;
       font-family: "Press Start 2P", system-ui;
       position: relative;
-    }
-
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent black overlay */
-      opacity: 0.2; /* Lower the opacity level */
-      z-index: -1;
     }
 
     .top-right {
@@ -58,15 +46,25 @@
     }
 
     h1 {
-      font-size: 48px;
+      font-size: 24px; /* Smaller font size */
       margin-top: 100px;
+    }
+
+    .center-box {
+      background-color: #1e1e2e;
+      padding: 50px 200px;
+      border-radius: 10px;
+      color: #cdd6f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .center-buttons {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 50px;
+      margin-top: 20px;
     }
 
     .center-buttons button {
@@ -102,7 +100,7 @@
     }
 
     .center-buttons select {
-      width: 250; /* Further increase the width to fit the wording */
+      width: 280px; /* Adjusted width to fit the text */
       padding: 10px;
       background-color: #bac2de;
       color: #1e1e2e;
@@ -124,9 +122,10 @@
     <button onclick="window.location.href='/login'">Logout</button>
     <button onclick="window.location.href='/profile'">Profile</button>
   </div>
-  <h1>Create Game</h1>
-  <div class="center-buttons">
-    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5b3361cd-14d8-4b92-810b-0f290cbcbff1/d8vhtzw-ee697f67-41c8-4d71-8a9f-44a3d5941333.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzViMzM2MWNkLTE0ZDgtNGI5Mi04MTBiLTBmMjkwY2JjYmZmMVwvZDh2aHR6dy1lZTY5N2Y2Ny00MWM4LTRkNzEtOGE5Zi00NGEzZDU5NDEzMzMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.xKjHVkgrREtXNx3GpQyABT7sWRUrRvL5lscVf-YgqS0" width="200" height="200" alt="Tank Gif">
+  <div class="center-box">
+    <h1>Create Game</h1>
+    <div class="center-buttons">
+      <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5b3361cd-14d8-4b92-810b-0f290cbcbff1/d8vhtzw-ee697f67-41c8-4d71-8a9f-44a3d5941333.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzViMzM2MWNkLTE0ZDgtNGI5Mi04MTBiLTBmMjkwY2JjYmZmMVwvZDh2aHR6dy1lZTY5N2Y2Ny00MWM4LTRkNzEtOGE5Zi00NGEzZDU5NDEzMzMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.xKjHVkgrREtXNx3GpQyABT7sWRUrRvL5lscVf-YgqS0" width="200" height="200" alt="Tank Gif">
             <div class="auth-links">
     <form action="/submit" method="POST">
     <input type="text" id="gameName" name="gameName" placeholder="Enter Game Name" required>
