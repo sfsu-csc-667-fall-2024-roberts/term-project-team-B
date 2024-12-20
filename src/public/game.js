@@ -31,6 +31,86 @@ let gameOver = false;
 const players = {};
 const keys = {};
 
+
+
+
+//Handle WebSocket messages
+ws.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+	console.log('Received WebSocket message:', data);
+  if (data.type === 'init') {
+    myPlayerId = data.playerId;
+    Object.assign(players, data.players);
+  } else if (data.type === 'updatePlayers') {
+    // Replace the players object with the updated one from the server
+    Object.keys(players).forEach((id) => {
+      if (!data.players[id]) {
+        console.log(`Player ${id} removed.`);
+        delete players[id]; // Remove missing players
+      }
+    });
+	console.log('Updated players:', data.players);
+    Object.assign(players, data.players);
+    console.log('Updated players:', players);
+  } else if (data.type === 'updatePlayer') {
+    players[data.player.id] = data.player;
+  } else if (data.type === 'shoot') {
+    const { playerId, bullet } = data;
+    if (players[playerId]) {
+      players[playerId].bullets.push(bullet);
+    }
+  }
+};
+
+
+function drawOtherPlayers() {
+    for (const [id, otherPlayer] of Object.entries(players)) {
+        if (id !== myPlayerId) {
+            // Load and draw the tank sprite for other players
+            const sprite = player.spritePositions[otherPlayer.direction];
+            
+            ctx.drawImage(
+                player.spriteSheet, // Use the tank sprite sheet
+                sprite.x,
+                sprite.y,
+                55, // Sprite width
+                90, // Sprite height
+                otherPlayer.x,
+                otherPlayer.y,
+                player.width,
+                player.height
+            );
+
+            // Draw the health bar above other players
+            ctx.fillStyle = 'red';
+            ctx.fillRect(
+                otherPlayer.x,
+                otherPlayer.y - 10,
+                (otherPlayer.health / 100) * player.width,
+                5
+            );
+        }
+    }
+}
+
+
+
+function sendPlayerState() {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+
+    const state = {
+        type: 'move',
+        playerId: myPlayerId,
+        x: player.x,
+        y: player.y,
+        direction: player.direction,
+    };
+
+    ws.send(JSON.stringify(state));
+}
+
+
+
 // Tank properties for player
 const player = {
     x: canvas.width / 2 - 25,
@@ -372,6 +452,8 @@ function draw() {
 
     // Draw Player
     drawPlayer();
+    
+    drawOtherPlayers();
 
     // Draw Bullets
     drawBullets();
@@ -395,6 +477,7 @@ function gameLoop() {
     if (!gameOver) {
         update();
         draw();
+        sendPlayerState();
         requestAnimationFrame(gameLoop);
     }
 }
