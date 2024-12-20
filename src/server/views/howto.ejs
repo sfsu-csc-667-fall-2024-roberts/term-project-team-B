@@ -11,28 +11,58 @@
             background-color: #181825;
             color: #cdd6f4;
             padding: 20px;
+            position: relative;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-right button {
+            background-color: #cdd6f4;
+            color: #181825;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: "Press Start 2P", system-ui;
+            padding: 10px 20px;
+        }
+
+        .top-right button:hover {
+            background-color: #bac2de;
+        }
+
+        .content {
+            margin-top: 60px; /* Add margin to lower the content */
         }
     </style>
 </head>
 <body>
-    <h1>How to Play</h1>
-    <p>Welcome to the battlefield, commander! Here's everything you need to know to dominate in Tank Game:</p>
-    
-    <h2>Objective</h2>
-    <p>Destroy enemy tanks while protecting yourself and your base.<br>
-    Survive as long as possible to rack up points and climb the leaderboard!</p>
-    
-    <h2>Controls</h2>
-    <p>Arrow Keys: Move your tank in different directions.<br>
-    Up: Move forward.<br>
-    Down: Move backward.<br>
-    Left/Right: Rotate your tank.<br>
-    Spacebar: Fire your cannon to destroy enemies.<br>
-    Enter: Pause the game or access the menu.</p>
-    
-    <h2>Scoring System</h2>
-    <p>+10 Points for destroying an enemy tank.<br>
-    +5 Points for avoiding enemy fire.<br>
-    -5 Points for getting hit.</p>
+    <div class="top-right">
+        <button onclick="location.href='/'">Back to Home</button>
+    </div>
+    <div class="content">
+        <h1>How to Play</h1>
+        <p>Welcome to the battlefield, commander! Here's everything you need to know to dominate in Tank Game:</p>
+        
+        <h2>Objective</h2>
+        <p>Destroy enemy tanks while protecting yourself and your base.<br>
+        Survive as long as possible to rack up points and climb the leaderboard!</p>
+        
+        <h2>Controls</h2>
+        <p>Arrow Keys: Move your tank in different directions.<br>
+        Up: Move forward.<br>
+        Down: Move backward.<br>
+        Left/Right: Rotate your tank.<br>
+        Spacebar: Fire your cannon to destroy enemies.<br>
+        Enter: Pause the game or access the menu.</p>
+        
+        <h2>Scoring System</h2>
+        <p>+10 Points for destroying an enemy tank.<br>
+        +5 Points for avoiding enemy fire.<br>
+        -5 Points for getting hit.</p>
+    </div>
 </body>
 </html>

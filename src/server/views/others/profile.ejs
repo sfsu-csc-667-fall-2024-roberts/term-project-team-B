@@ -13,10 +13,25 @@
                 height: 100vh;
                 margin: 0;
                 text-align: center;
-                background-color: #181825;
+                background: url('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExdHBxanFzMHZsdHFrNWpvZnljOHpxMGZoODl0MGRkZ3k0NDFjbnlraiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3ZUddDFsFxB6M/giphy.webp') no-repeat center center fixed;
+                background-size: cover;
                 color: #cdd6f4;
                 font-family: "Press Start 2P", system-ui;
+                position: relative;
             }
+
+            body::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent black overlay */
+                opacity: 0.1; /* Set the opacity level */
+                z-index: -1;
+            }
+
             .center-box {
                 background-color: #1e1e2e;
                 padding: 50px 100px;
@@ -25,6 +40,7 @@
             }
             .form-group {
                 margin-bottom: 20px;
+                position: relative;
             }
             .form-group label {
                 display: block;
@@ -37,9 +53,21 @@
                 border-radius: 5px;
                 border: none;
                 font-family: "Press Start 2P", system-ui;
+                background-color: #3b3b4f;
+                color: #cdd6f4;
             }
-            .form-group input[type="file"] {
-                padding: 0;
+            .form-group input[readonly] {
+                background-color: #3b3b4f;
+                color: #cdd6f4;
+            }
+            .form-group .edit-pencil {
+                position: absolute;
+                right: 10px;
+                top: 70%; /* Lower the position */
+                transform: translateY(-50%);
+                cursor: pointer;
+                color: #cdd6f4;
+                font-size: 18px;
             }
             .form-group button {
                 background-color: #bac2de;
@@ -53,30 +81,43 @@
             .form-group button:hover {
                 background-color: #cdd6f4;
             }
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-bottom: 20px;
+            }
         </style>
+        <script>
+            function enableEditing(id) {
+                document.getElementById(id).removeAttribute('readonly');
+                document.getElementById(id).focus();
+            }
+        </script>
     </head>
     <body>
         <div class="center-box">
             <h1>Profile Settings</h1>
+            <img src="https://pbs.twimg.com/media/Ge4PjlibsAA5H7m?format=png&name=900x900" alt="Profile Image" class="profile-image">
             <form action="/profile/update" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="profileImage">Profile Image</label>
-                    <input type="file" id="profileImage" name="profileImage">
-                </div>
-                <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
+                    <input type="text" id="username" name="username" value="testslayer" readonly>
+                    <span class="edit-pencil" onclick="enableEditing('username')">&#9998;</span>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" value="testslayer@gmail.com" readonly>
+                    <span class="edit-pencil" onclick="enableEditing('email')">&#9998;</span>
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required>
+                    <span class="edit-pencil" onclick="enableEditing('password')">&#9998;</span>
                 </div>
                 <div class="form-group">
-                    <button type="submit">Update Profile</button>
+                    <button type="submit" onclick="window.location.href='/createGame'">Update Profile</button>
                 </div>
             </form>
         </div>

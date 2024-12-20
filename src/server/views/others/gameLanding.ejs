@@ -20,12 +20,15 @@
       background-color: #181825;
       color: #cdd6f4;
       font-family: "Press Start 2P", system-ui;
+      position: relative;
     }
 
     .top-right {
       position: absolute;
       top: 20px;
       right: 20px;
+      display: flex;
+      gap: 10px;
     }
 
     .top-right button {
@@ -34,7 +37,6 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-      margin: 0 5px;
       font-family: "Press Start 2P", system-ui;
       padding: 10px 20px;
     }
@@ -43,16 +45,26 @@
       background-color: #cdd6f4;
     }
 
+    .center-box {
+      background-color: #1e1e2e;
+      padding: 80px 250px; /* Increase padding to make the box bigger */
+      border-radius: 10px;
+      color: #cdd6f4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     h1 {
       font-size: 48px;
-      margin-top: 100px;
+      margin-top: 0;
     }
 
     .center-buttons {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 50px;
+      margin-top: 20px;
     }
 
     .center-buttons button {
@@ -75,14 +87,17 @@
 
 <body>
   <div class="top-right">
-    <button onclick="window.location.href='/login'">Logout</button>
+    <button onclick="window.location.href='/'">Logout</button>
     <button onclick="window.location.href='/profile'">Profile</button>
   </div>
-  <h1>Tank Game</h1>
-  <div class="center-buttons">
-    <button onclick="window.location.href='createGame'">Create Game</button>
-    <button onclick="window.location.href='openGames'">Open Games</button>
-    <button onclick="window.location.href='chat'">Open Chat</button>
+  <div class="center-box">
+    <h1>Tank Game</h1>
+    <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5b3361cd-14d8-4b92-810b-0f290cbcbff1/d8vhtzw-ee697f67-41c8-4d71-8a9f-44a3d5941333.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzViMzM2MWNkLTE0ZDgtNGI5Mi04MTBiLTBmMjkwY2JjYmZmMVwvZDh2aHR6dy1lZTY5N2Y2Ny00MWM4LTRkNzEtOGE5Zi00NGEzZDU5NDEzMzMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.xKjHVkgrREtXNx3GpQyABT7sWRUrRvL5lscVf-YgqS0" width="200" height="200" alt="Tank Gif">
+    <div class="center-buttons">
+      <button onclick="window.location.href='createGame'">Create Game</button>
+      <button onclick="window.location.href='openGames'">Open Games</button>
+      <button onclick="window.location.href='chat'">Open Chat</button>
+    </div>
   </div>
 </body>
 
