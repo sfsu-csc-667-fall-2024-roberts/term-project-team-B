@@ -7,10 +7,10 @@
     self,
     nixpkgs,
   }: let
-      supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
-      config = {
-        allowUnfree = true;
-      };
+    supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    config = {
+      allowUnfree = true;
+    };
     forEachSupportedSystem = f:
       nixpkgs.lib.genAttrs supportedSystems (system:
         f {
@@ -32,8 +32,7 @@
           nodejs
           nodePackages.pnpm
           yarn
-            nodePackages_latest.typescript-language-server
-            mongodb
+          nodePackages_latest.typescript-language-server
         ];
       };
     });
